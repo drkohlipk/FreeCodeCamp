@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+}
+
+#big-box {
+  background-color: #F0EBE8;
+  border-radius: 5px;
+  margin-top: 70px;
+}
+
+h1 {
+  padding-top: 40px;
+  font-size: 60px;
+}
+
+#mainpic {
+  background-color: white;
+  border-radius: 5px;
+  padding: 3px;
+  width: 946px;
+}
+
+#description {
+  padding-top: 7px;
+  padding-bottom: 5px;
+}
+
+#timelinetitle {
+  padding-top: 25px;
+  width: 500px;
+}
+
+#timelinelist {
+  width: 500px;
+}
+
+#endquote {
+  font-size: 25px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+#neilyoung {
+  font-family: 'Source Sans Pro', sans-serif;
+  padding-top: 10px;
+}
+
+#wiki {
+  width: 600px;
+  padding-bottom: 40px;
+}
+
+hr {
+  border-top: 1px solid #A8A4A2;
+  width: 1150px;
+}
+
+a {
+    text-decoration: none;
+}
