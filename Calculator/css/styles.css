@@ -1,27 +1,26 @@
-* {
+
+* { /*box sizing reset*/
   box-sizing: border-box;
 }
 
-body {
-  background-image: url("../images/woodenBG.jpg");
-  background-attachment: fixed;
-  background-position: center;
+body { /*background-image for body*/
+  background-image: url("../images/altCalcBG.jpg");
   background-size: cover;
 }
 
-#calc {
+#calc { /*calculator*/
   position: absolute;
   height: 600px;
   width: 395px;
   top: 15%;
-  left: 35%;
+  left: 50%;
   background-image: url("../images/calcBG.jpg");
   background-position: top;
   border-radius: 10px;
   box-shadow: inset -3px -3px 20px black;
 }
 
-#calc span {
+#calc span { /*calc screen*/
   position: absolute;
   top: 25px;
   left: 25px;
@@ -39,7 +38,7 @@ body {
   overflow-y: hidden;
 }
 
-button {
+button { /*buttons*/
   position: absolute;
   height: 75px;
   width: 75px;
@@ -48,41 +47,42 @@ button {
   opacity: .6;
 }
 
-button:hover {
+button:hover { /*button on hover*/
   box-shadow: 0px 0px 10px 3px white;
 }
 
-button:active{
+button:active, button.active { /*if buttons are active*/
   background-color: black;
   color: white;
 }
 
-.operator#equal:active {
-  background-color: darkred;
-  border-color: darkred;
-}
-
-.operator {
+.operator { /*operator buttons*/
   background-color: rgb(96, 96, 96);
   border-color: rgb(96, 96, 96);
   color: white;
   font-size: 40px;
 }
 
-.operator#equal {
-  background-color: red;
-  border-color: red;
-}
-
-.number {
+.number { /*number buttons*/
   color: black;
   font-size: 40px;
 }
 
-.number#zero, .operator#clear {
+.operator#equal { /*equal button*/
+  background-color: red;
+  border-color: red;
+}
+
+.operator#equal:active { /*if equal button active*/
+  background-color: darkred;
+  border-color: darkred;
+}
+
+.number#zero, .operator#clear { /*wider buttons*/
   width: 165px;
 }
 
+/********positioning for buttons*********/
 .number#zero, .number#one, .number#four, .number#seven, .operator#clear {
   left: 25px;
 }
@@ -118,3 +118,4 @@ button:active{
 .operator#clear, .operator#neg, .operator#divide {
   bottom: 385px;
 }
+/********positioning for buttons*********/

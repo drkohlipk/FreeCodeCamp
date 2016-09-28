@@ -1,202 +1,494 @@
-var firstNum = "",
-  secondNum = "",
-  result = "";
+/**************variables***************/
+var holder = "",
+  result = "",
+  operator = "",
+  screen = document.getElementById("window"),
+  zero = document.getElementById("zero"),
+  one = document.getElementById("one"),
+  two = document.getElementById("two"),
+  three = document.getElementById("three"),
+  four = document.getElementById("four"),
+  five = document.getElementById("five"),
+  six = document.getElementById("six"),
+  seven = document.getElementById("seven"),
+  eight = document.getElementById("eight"),
+  nine = document.getElementById("nine"),
+  equal = document.getElementById("equal"),
+  decimal = document.getElementById("decimal"),
+  clear = document.getElementById("clear"),
+  plus = document.getElementById("plus"),
+  minus = document.getElementById("minus"),
+  mult = document.getElementById("mult"),
+  divide = document.getElementById("divide"),
+  posneg = document.getElementById("neg");
+/**************variables***************/
 
+
+/*******makes pos/neg button work******/
+function makePosNeg() {
+
+  if (result.search(/[-]/) === -1) { //if number is not already negative...
+
+    result = "-" + result //make it negative
+
+    screen.innerHTML = result; //print to the calc screen
+
+  } else { //if number is negative
+
+    result = result.slice(1); //make it positive
+
+    screen.innerHTML = result; //print to the calc screen
+
+  } //else
+
+} //fx makePosNeg
+/*******makes pos/neg button work******/
+
+
+/*****evaluates the created problem****/
+function equals() {
+
+  result = eval(holder + " " + operator + " " + result).toString(); //construct and evaluate the problem
+
+  screen.innerHTML = result; //print to the calc screen
+
+  holder = ""; //reset the value of holder
+
+  operator = ""; //resets the operator
+
+  plus.classList.remove("active"); //deselect operator buttons
+
+  minus.classList.remove("active");
+
+  mult.classList.remove("active");
+
+  divide.classList.remove("active");
+
+} //fx equals
+/*****evaluates the created problem****/
+
+
+/*******allows for the operator********/
+function createOp(op) {
+
+  if (result == "" && op == "-") { //if result doesn't have a value and the operator is a minus sign
+
+    result += op; //add the minus sign to result (as negative sign)
+
+    minus.classList.remove("active"); //don't keep minus active
+
+    screen.innerHTML = result; //print result to calc screen
+
+  } else { //if result isn't empty and/or isn't a minus sign
+
+    if (holder == "") { //if holder doesn't already have a value
+
+      operator = op; //set operator to the value of op
+
+      holder = result; //set holder to equal the value of result
+
+      result = ""; //reset the value of result
+
+      screen.innerHTML = holder; //print holder to the calc screen
+
+    } else { //if holder does already have a value
+
+      operator = op; //simply reset the value of operator
+
+      screen.innerHTML = holder; //print holder to the calc screen
+
+    } //inner else
+
+  } //outer else
+
+} //fx createOp
+/*******allows for the operator********/
+
+
+/*******creates number inputs**********/
 function createProb(input) {
-  if (input === "." && result.search(/[.]/) !== -1) {
-    return;
-  } else if (input.search(/[\+\/\-\*]/) !== -1 && result.search(/[\+\/\-\*]/) !==
-    -1) {
-    if (input.search(/[\+\/\-\*]/) !== -1 && result[0] === "-") {
-      result += input;
-      document.getElementById("window").innerHTML = result;
-    } else {
-      return;
-    }
-  } else {
-    result += input;
-    document.getElementById("window").innerHTML = result;
-  }
-}
 
+  if (input === "." && result.search(/[.]/) !== -1) { //if input is a decimal and result already contains a decimal...
+
+    return;
+
+  } else { //otherwise...
+
+    result += input; //insert the decimal
+
+    screen.innerHTML = result; //print result to the calc screen
+
+  } //else
+
+} //fx createProb
+/*******creates number inputs**********/
+
+
+/**adds event listeners for keydowns***/
 window.addEventListener('keydown', function(k) {
-  if (event.shiftKey) {
+
+  if (event.shiftKey) { //if the shift is held down while pressing...
+
     switch (k.keyCode) {
-      case 56:
-        createProb("*");
+
+      case 56: //#8 keyboard key mult operator
+        if (mult.classList.contains("active")) {
+          mult.classList.remove("active");
+          operator = "";
+        } else {
+          plus.classList.remove("active");
+          minus.classList.remove("active");
+          divide.classList.remove("active");
+          mult.classList.add("active");
+          createOp("*");
+        }
         break;
-      case 187:
-        createProb("+");
+
+      case 187: //plus sign keyboard
+        if (plus.classList.contains("active")) {
+          plus.classList.remove("active");
+          operator = "";
+        } else {
+          minus.classList.remove("active");
+          mult.classList.remove("active");
+          divide.classList.remove("active");
+          plus.classList.add("active");
+          createOp("+");
+        }
         break;
-    }
+
+    } //shiftkey switch
+
   } else {
+
     switch (k.keyCode) {
-      case 8:
+
+      case 8: //backspace
         result = result.slice(0, -1);
-        document.getElementById("window").innerHTML = result;
+        screen.innerHTML = result;
         break;
-      case 13:
-        result = eval(result).toString();
-        document.getElementById("window").innerHTML = result;
+
+      case 13: //enter key
+        equals();
         break;
+
+        /****keyboard numbers****/
       case 48:
         createProb("0");
         break;
+
       case 49:
         createProb("1");
         break;
+
       case 50:
         createProb("2");
         break;
+
       case 51:
         createProb("3");
         break;
+
       case 52:
         createProb("4");
         break;
+
       case 53:
         createProb("5");
         break;
+
       case 54:
         createProb("6");
         break;
+
       case 55:
         createProb("7");
         break;
+
       case 56:
         createProb("8");
         break;
+
       case 57:
         createProb("9");
         break;
+        /****keyboard numbers****/
+
+        /****keypad numbers****/
       case 96:
         createProb("0");
         break;
+
       case 97:
         createProb("1");
         break;
+
       case 98:
         createProb("2");
         break;
+
       case 99:
         createProb("3");
         break;
+
       case 100:
         createProb("4");
         break;
+
       case 101:
         createProb("5");
         break;
+
       case 102:
         createProb("6");
         break;
+
       case 103:
         createProb("7");
         break;
+
       case 104:
         createProb("8");
         break;
+
       case 105:
         createProb("9");
         break;
+        /****keypad numbers****/
+
+        /****keypad operators****/
       case 106:
-        createProb("*");
+        if (mult.classList.contains("active")) {
+          mult.classList.remove("active");
+          operator = "";
+        } else {
+          plus.classList.remove("active");
+          minus.classList.remove("active");
+          divide.classList.remove("active");
+          mult.classList.add("active");
+          createOp("*");
+        }
         break;
+
       case 107:
-        createProb("+");
+        if (plus.classList.contains("active")) {
+          plus.classList.remove("active");
+          operator = "";
+        } else {
+          minus.classList.remove("active");
+          mult.classList.remove("active");
+          divide.classList.remove("active");
+          plus.classList.add("active");
+          createOp("+");
+        }
         break;
+
       case 109:
-        createProb("-");
+        if (minus.classList.contains("active")) {
+          minus.classList.remove("active");
+          operator = "";
+        } else {
+          plus.classList.remove("active");
+          mult.classList.remove("active");
+          divide.classList.remove("active");
+          minus.classList.add("active");
+          createOp("-");
+        }
         break;
+
       case 110:
         createProb(".");
         break;
+
       case 111:
-        createProb("/");
+        if (divide.classList.contains("active")) {
+          divide.classList.remove("active");
+          operator = "";
+        } else {
+          plus.classList.remove("active");
+          minus.classList.remove("active");
+          mult.classList.remove("active");
+          divide.classList.add("active");
+          createOp("/");
+        }
         break;
-      case 187:
-        result = eval(result).toString();
-        document.getElementById("window").innerHTML = result;
+        /****keypad operators****/
+
+      case 187: //mac return key
+        equals();
         break;
+
+        /****keyboard operators****/
       case 189:
-        createProb("-");
+        if (minus.classList.contains("active")) {
+          minus.classList.remove("active");
+          operator = "";
+        } else {
+          plus.classList.remove("active");
+          mult.classList.remove("active");
+          divide.classList.remove("active");
+          minus.classList.add("active");
+          createOp("-");
+        }
         break;
+
       case 190:
         createProb(".");
         break;
+
       case 191:
-        createProb("/");
+        if (divide.classList.contains("active")) {
+          divide.classList.remove("active");
+          operator = "";
+        } else {
+          plus.classList.remove("active");
+          minus.classList.remove("active");
+          mult.classList.remove("active");
+          divide.classList.add("active");
+          createOp("/");
+        }
         break;
-    }
-  }
+        /****keyboard operators****/
+
+    } //no shiftkey switch
+
+  } //else
+
+}); //keydown event listener fx
+/**adds event listeners for keydowns***/
+
+
+/**if resp button is clicked, call fx**/
+posneg.addEventListener("click", function() { //if posneg button is clicked...
+  makePosNeg(); //call the makePosNeg fx
+  posneg.blur(); //deselect the posneg button
 });
 
-document.getElementById("zero").addEventListener("click", function() {
+zero.addEventListener("click", function() {
   createProb("0");
+  zero.blur();
 });
 
-document.getElementById("one").addEventListener("click", function() {
+one.addEventListener("click", function() {
   createProb("1");
+  one.blur();
 });
 
-document.getElementById("two").addEventListener("click", function() {
+two.addEventListener("click", function() {
   createProb("2");
+  two.blur();
 });
 
-document.getElementById("three").addEventListener("click", function() {
+three.addEventListener("click", function() {
   createProb("3");
+  three.blur();
 });
 
-document.getElementById("four").addEventListener("click", function() {
+four.addEventListener("click", function() {
   createProb("4");
+  four.blur();
 });
 
-document.getElementById("five").addEventListener("click", function() {
+five.addEventListener("click", function() {
   createProb("5");
+  five.blur();
 });
 
-document.getElementById("six").addEventListener("click", function() {
+six.addEventListener("click", function() {
   createProb("6");
+  six.blur();
 });
 
-document.getElementById("seven").addEventListener("click", function() {
+seven.addEventListener("click", function() {
   createProb("7");
+  seven.blur();
 });
 
-document.getElementById("eight").addEventListener("click", function() {
+eight.addEventListener("click", function() {
   createProb("8");
+  eight.blur();
 });
 
-document.getElementById("nine").addEventListener("click", function() {
+nine.addEventListener("click", function() {
   createProb("9");
+  nine.blur();
 });
 
-document.getElementById("equal").addEventListener("click", function() {
-  result = eval(result).toString();
-  document.getElementById("window").innerHTML = result;
+equal.addEventListener("click", function() {
+  equals();
+  equal.blur();
 });
 
-document.getElementById("decimal").addEventListener("click", function() {
+decimal.addEventListener("click", function() {
   createProb(".");
+  decimal.blur();
 });
 
-document.getElementById("clear").addEventListener("click", function() {
+clear.addEventListener("click", function() {
   result = "";
-  document.getElementById("window").innerHTML = result;
+  holder = "";
+  operator = "";
+  plus.classList.remove("active");
+  minus.classList.remove("active");
+  mult.classList.remove("active");
+  divide.classList.remove("active");
+  screen.innerHTML = result;
+  clear.blur();
 });
 
-document.getElementById("plus").addEventListener("click", function() {
-  createProb(" + ");
+plus.addEventListener("click", function() {
+  if (plus.classList.contains("active")) {
+    plus.classList.remove("active");
+    operator = "";
+  } else {
+    minus.classList.remove("active");
+    mult.classList.remove("active");
+    divide.classList.remove("active");
+    plus.classList.add("active");
+    createOp("+");
+  }
+  plus.blur();
 });
 
-document.getElementById("minus").addEventListener("click", function() {
-  createProb(" - ");
+minus.addEventListener("click", function() {
+  if (minus.classList.contains("active")) {
+    minus.classList.remove("active");
+    operator = "";
+  } else {
+    plus.classList.remove("active");
+    mult.classList.remove("active");
+    divide.classList.remove("active");
+    minus.classList.add("active");
+    createOp("-");
+  }
+  minus.blur();
 });
 
-document.getElementById("mult").addEventListener("click", function() {
-  createProb(" * ");
+mult.addEventListener("click", function() {
+  if (mult.classList.contains("active")) {
+    mult.classList.remove("active");
+    operator = "";
+  } else {
+    plus.classList.remove("active");
+    minus.classList.remove("active");
+    divide.classList.remove("active");
+    mult.classList.add("active");
+    createOp("-");
+  }
+  mult.blur();
 });
 
-document.getElementById("divide").addEventListener("click", function() {
-  createProb(" / ");
+divide.addEventListener("click", function() {
+  if (divide.classList.contains("active")) {
+    divide.classList.remove("active");
+    operator = "";
+  } else {
+    plus.classList.remove("active");
+    minus.classList.remove("active");
+    mult.classList.remove("active");
+    divide.classList.add("active");
+    createOp("-");
+  }
+  divide.blur();
 });
+/**if resp button is clicked, call fx**/
