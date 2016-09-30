@@ -473,7 +473,7 @@ mult.addEventListener("click", function() {
     minus.classList.remove("active");
     divide.classList.remove("active");
     mult.classList.add("active");
-    createOp("-");
+    createOp("*");
   }
   mult.blur();
 });
@@ -487,7 +487,7 @@ divide.addEventListener("click", function() {
     minus.classList.remove("active");
     mult.classList.remove("active");
     divide.classList.add("active");
-    createOp("-");
+    createOp("/");
   }
   divide.blur();
 });
